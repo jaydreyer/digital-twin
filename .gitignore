@@ -1,4 +1,6 @@
 # Terraform
+# Bootstrap-only OIDC/IAM (keep locally; do not commit — see header in that file)
+terraform/github-oidc.tf
 *.tfstate
 *.tfstate.*
 .terraform/

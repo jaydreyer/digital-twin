@@ -24,8 +24,6 @@ jobs:
     name: Deploy to ${{ github.event.inputs.environment || 'dev' }}
     runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.environment || 'dev' }}
-    env:
-      GITHUB_REPOSITORY: ${{ github.repository }}
 
     steps:
       - name: Checkout code

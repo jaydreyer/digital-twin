@@ -28,24 +28,11 @@ else
   terraform workspace select "$ENVIRONMENT"
 fi
 
-# github-oidc.tf: trust policy needs owner/repo. GITHUB_REPOSITORY is set automatically in GitHub Actions.
-REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-if [ -z "${GITHUB_REPOSITORY:-}" ]; then
-  _origin=$(git -C "$REPO_ROOT" remote get-url origin 2>/dev/null || true)
-  if [ -n "$_origin" ]; then
-    GITHUB_REPOSITORY=$(printf '%s' "$_origin" | sed -E 's#.*github\.com[:/]([^/]+)/([^/.]+)(\.git)?$#\1/\2#')
-  fi
-fi
-if [ -z "${GITHUB_REPOSITORY:-}" ] || [ "${GITHUB_REPOSITORY#*/}" = "$GITHUB_REPOSITORY" ]; then
-  echo "Error: Could not determine GitHub repo for OIDC. Export GITHUB_REPOSITORY=owner/repo or run from GitHub Actions." >&2
-  exit 1
-fi
-
 # Use prod.tfvars for production environment
 if [ "$ENVIRONMENT" = "prod" ]; then
-  TF_APPLY_CMD=(terraform apply -var-file=prod.tfvars -var="project_name=$PROJECT_NAME" -var="environment=$ENVIRONMENT" -var="github_repository=$GITHUB_REPOSITORY" -auto-approve)
+  TF_APPLY_CMD=(terraform apply -var-file=prod.tfvars -var="project_name=$PROJECT_NAME" -var="environment=$ENVIRONMENT" -auto-approve)
 else
-  TF_APPLY_CMD=(terraform apply -var="project_name=$PROJECT_NAME" -var="environment=$ENVIRONMENT" -var="github_repository=$GITHUB_REPOSITORY" -auto-approve)
+  TF_APPLY_CMD=(terraform apply -var="project_name=$PROJECT_NAME" -var="environment=$ENVIRONMENT" -auto-approve)
 fi
 
 echo "🎯 Applying Terraform..."

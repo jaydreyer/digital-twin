@@ -42,19 +42,6 @@ fi
 # Select the workspace
 terraform workspace select "$ENVIRONMENT"
 
-# github-oidc.tf: required variable. GITHUB_REPOSITORY is set automatically in GitHub Actions.
-REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-if [ -z "${GITHUB_REPOSITORY:-}" ]; then
-  _origin=$(git -C "$REPO_ROOT" remote get-url origin 2>/dev/null || true)
-  if [ -n "$_origin" ]; then
-    GITHUB_REPOSITORY=$(printf '%s' "$_origin" | sed -E 's#.*github\.com[:/]([^/]+)/([^/.]+)(\.git)?$#\1/\2#')
-  fi
-fi
-if [ -z "${GITHUB_REPOSITORY:-}" ] || [ "${GITHUB_REPOSITORY#*/}" = "$GITHUB_REPOSITORY" ]; then
-  echo "Error: Could not determine GitHub repo for OIDC. Export GITHUB_REPOSITORY=owner/repo or run from GitHub Actions." >&2
-  exit 1
-fi
-
 echo "📦 Emptying S3 buckets..."
 
 # Get bucket names with account ID (matching Day 4 naming)
@@ -87,9 +74,9 @@ fi
 
 # Run terraform destroy with auto-approve
 if [ "$ENVIRONMENT" = "prod" ] && [ -f "prod.tfvars" ]; then
-    terraform destroy -var-file=prod.tfvars -var="project_name=$PROJECT_NAME" -var="environment=$ENVIRONMENT" -var="github_repository=$GITHUB_REPOSITORY" -auto-approve
+    terraform destroy -var-file=prod.tfvars -var="project_name=$PROJECT_NAME" -var="environment=$ENVIRONMENT" -auto-approve
 else
-    terraform destroy -var="project_name=$PROJECT_NAME" -var="environment=$ENVIRONMENT" -var="github_repository=$GITHUB_REPOSITORY" -auto-approve
+    terraform destroy -var="project_name=$PROJECT_NAME" -var="environment=$ENVIRONMENT" -auto-approve
 fi
 
 echo "✅ Infrastructure for ${ENVIRONMENT} has been destroyed!"
