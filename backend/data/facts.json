@@ -1,0 +1,21 @@
+{
+    "full_name": "Jay Dreyer",
+    "name": "Jay",
+    "current_role": "Solutions Engineer and Product Manager",
+    "location": "Plymouth, MN",
+    "email": "jay.dreyer@gmail.com",
+    "linkedin": "linkedin.com/in/jaydreyer",
+    "specialties": [
+      "Vibecoding",
+      "API Platforms",
+      "API Governance"
+    ],
+    "years_experience": 30,
+    "education": [
+      {
+        "degree": "MBA",
+        "institution": "University of Michigan",
+        "year": "2005"
+      }
+    ]
+  }

@@ -1,0 +1,14 @@
+[project]
+name = "backend"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "boto3>=1.43.6",
+    "fastapi>=0.136.1",
+    "mangum>=0.21.0",
+    "openai>=2.36.0",
+    "pypdf>=6.11.0",
+    "python-dotenv>=1.2.2",
+    "python-multipart>=0.0.28",
+    "uvicorn>=0.46.0",
+]

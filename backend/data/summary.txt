@@ -1,0 +1,3 @@
+I am a Technical Product Manager with 25+ years of experience in retail technology and AI-driven product development. My expertise includes API governance, developer platform strategy, solutions engineering, and building AI-powered applications using modern LLM frameworks.
+Currently, I'm focused on transitioning into Solutions Engineer and Technical Account Manager roles at AI companies, while building Recall.local — a local-first personal knowledge management and RAG system running on my home lab server.
+My background includes leading API governance and developer portal initiatives at Target for 16 years, scaling an AI chatbot to a 75% resolution rate at Gap, and hands-on development of full-stack AI applications using FastAPI, Qdrant, Ollama, React, and Python.
