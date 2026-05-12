@@ -1,6 +1,4 @@
 # Terraform
-# Bootstrap-only (OIDC/IAM); not intended for the remote repo — see file header in github-oidc.tf
-terraform/github-oidc.tf
 *.tfstate
 *.tfstate.*
 .terraform/
