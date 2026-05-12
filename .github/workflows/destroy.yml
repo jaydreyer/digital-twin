@@ -24,7 +24,9 @@ jobs:
     name: Destroy ${{ github.event.inputs.environment }}
     runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.environment }}
-    
+    env:
+      GITHUB_REPOSITORY: ${{ github.repository }}
+
     steps:
       - name: Verify confirmation
         run: |
