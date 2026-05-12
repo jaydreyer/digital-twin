@@ -52,6 +52,13 @@ echo "NEXT_PUBLIC_API_URL=$API_URL" > .env.production
 npm install
 npm run build
 aws s3 sync ./out "s3://$FRONTEND_BUCKET/" --delete
+
+# Invalidate CloudFront cache to serve fresh content
+echo "🔄 Invalidating CloudFront cache..."
+DISTRIBUTION_ID=$(terraform -chdir=../terraform output -raw cloudfront_distribution_id)
+aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION_ID" --paths "/*" > /dev/null
+echo "✨ Cache invalidation triggered"
+
 cd ..
 
 # 4. Final messages
